@@ -23,6 +23,20 @@
     });
   }
 
+  /* ---------- Nav state: transparent over hero, solid once scrolled ---------- */
+  /* Pages without a hero (inner pages) stay solid from the top. */
+  var header = document.querySelector('.site-header');
+  if (header) {
+    var hasHero = !!document.querySelector('.hero');
+    var setNavState = function () {
+      var solid = !hasHero || window.scrollY > 40;
+      header.classList.toggle('nav-solid', solid);
+      header.classList.toggle('nav-transparent', !solid);
+    };
+    setNavState();
+    window.addEventListener('scroll', setNavState, { passive: true });
+  }
+
   /* ---------- Mobile menu ---------- */
   var hamburger = document.getElementById('hamburger');
   var nav = document.getElementById('primary-nav');
