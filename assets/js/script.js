@@ -166,6 +166,12 @@
     var onScroll = function () { backBtn.classList.toggle('show', window.scrollY > 700); };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+    /* #top is the fixed header, so scrollIntoView is a no-op; scroll the window instead */
+    backBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
   }
 
   /* ---------- Footer year ---------- */
