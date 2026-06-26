@@ -1,0 +1,29 @@
+# ============================================================
+# Hawkins Construction - root rewrite into /public
+#
+# Works whether the project sits at a domain root (cPanel
+# public_html) or inside a subfolder (XAMPP htdocs/Project).
+# The matched pattern is relative to this folder, so the
+# "^public/" guard reliably stops the rewrite loop everywhere.
+# ============================================================
+RewriteEngine On
+
+# Never expose the application layer, storage, or VCS internals
+RewriteRule ^(app|storage|\.git|\.vscode|\.claude)(/|$) - [F,L]
+
+# Already mapped into public/ - stop (prevents an infinite loop)
+RewriteRule ^public/ - [L]
+
+# Forward the homepage and every other request into public/
+RewriteRule ^$ public/ [L]
+RewriteRule ^(.*)$ public/$1 [L]
+
+Options -Indexes
+DirectoryIndex index.php index.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+</IfModule>

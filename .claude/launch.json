@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hawkins-php",
+      "runtimeExecutable": "C:\\xampp\\php\\php.exe",
+      "runtimeArgs": ["-S", "127.0.0.1:8821", "-t", "public", "server.php"],
+      "port": 8821
+    }
+  ]
+}
